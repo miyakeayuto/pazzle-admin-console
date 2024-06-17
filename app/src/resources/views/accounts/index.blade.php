@@ -34,6 +34,13 @@
 </div>
 
 <h1>■{{$title}}</h1>
+
+<form method="post" action="/accounts/index">
+    <input type="text" name="name_index" placeholder="名前を入力">
+    <button type="submit">検索</button>
+    @csrf
+</form>
+
 <table>
     <tr>
         <th>名前</th>

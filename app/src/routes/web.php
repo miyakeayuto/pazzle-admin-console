@@ -21,3 +21,5 @@ Route::get('accounts/item', [AccountController::class, 'itemList']);
 Route::get('accounts/have_item', [AccountController::class, 'have_ItemList']);
 
 Route::get('accounts/index/{account_id?}', [AccountController::class, 'index']);
+
+Route::post('accounts/index', [AccountController::class, 'index']);

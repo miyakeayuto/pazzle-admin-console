@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Account;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Http\Request;
 
@@ -13,16 +14,13 @@ class AccountController extends Controller
     {
         $title = 'アカウント一覧';
 
-        $data = [
-            [
-                'name' => 'テストさん',
-                'password' => '$3$3kdiei2',
-            ],
-            [
-                'name' => '<h1>jobi</h1>',
-                'password' => '$9$s#2kdie',
-            ]
-        ];
+        if (isset($request['name_index'])) {
+            //nameが指定されていたら
+            $accounts = Account::where('name', '=', $request['name_index'])->get();
+        } else {
+            //テーブルの全てのレコードを表示
+            $accounts = Account::All();
+        }
 
         //デバッグ
 
@@ -53,7 +51,7 @@ class AccountController extends Controller
 
         //セッションに指定したキーが存在するか
         if ($request->session()->exists('login')) {
-            return view('accounts/index', ['title' => $title, 'accounts' => $data]);             //ビューに変数を渡す
+            return view('accounts/index', ['title' => $title, 'accounts' => $accounts]);             //ビューに変数を渡す
         } else {
             return view('accounts/login');
         }
