@@ -3,7 +3,7 @@
 use App\Http\Controllers\AccountController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [AccountController::class, 'login']);
+Route::get('/', [AccountController::class, 'login'])->name('login');
 
 //doLoginのルーティング追加
 Route::post('accounts/doLogin', [AccountController::class, 'doLogin']);

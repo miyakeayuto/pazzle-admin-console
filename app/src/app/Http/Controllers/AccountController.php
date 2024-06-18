@@ -6,14 +6,13 @@ namespace App\Http\Controllers;
 use App\Models\Account;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AccountController extends Controller
 {
     //アカウント一覧を表示する
     public function index(Request $request)
     {
-        $title = 'アカウント一覧';
-
         if (isset($request['name_index'])) {
             //nameが指定されていたら
             $accounts = Account::where('name', '=', $request['name_index'])->get();
@@ -51,7 +50,7 @@ class AccountController extends Controller
 
         //セッションに指定したキーが存在するか
         if ($request->session()->exists('login')) {
-            return view('accounts/index', ['title' => $title, 'accounts' => $accounts]);             //ビューに変数を渡す
+            return view('accounts/index', ['accounts' => $accounts]);             //ビューに変数を渡す
         } else {
             return view('accounts/login');
         }
@@ -66,14 +65,22 @@ class AccountController extends Controller
     //ログイン処理
     public function doLogin(Request $request)
     {
-        if ($request['name'] === 'jobi' && $request['pass'] === 'jobi') {
+        //バリデーション
+        $validated = $request->validate([
+            'name' => ['required', 'min:4', 'max:20']
+        ]);
+
+        //条件を指定して取得
+        $account = Account::where('name', '=', $request['name'])->get();
+
+        if (Hash::check($request['pass'], $account[0]->password)) {
+            //成功した時
             //セッションに指定のキーで値を保存
             $request->session()->put('login', true);
-
             return redirect('accounts/index');
         } else {
-            $error = '名前もしくはパスワードに誤りがあります。';
-            return view('accounts/login', ['error' => $error]);
+            //失敗した時
+            return redirect()->route('login', ['error' => 'invalid']);
         }
     }
 

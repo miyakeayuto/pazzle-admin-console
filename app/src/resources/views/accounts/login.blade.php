@@ -7,8 +7,12 @@
     <label>パスワード：<input type="text" name="pass"></label><br>
     <label><input type="submit" value="ログイン" name="btn_submit"></label>
     <input type="hidden" name="action" value="doLogin">
-    @if(isset($error))
-        <p>{{$error}}</p>
+    @if($errors->any())
+        <ul>
+            @foreach($errors->all() as $error)
+                <li>{{$error}}</li>
+            @endforeach
+        </ul>
     @endif
 </form>
 </body>

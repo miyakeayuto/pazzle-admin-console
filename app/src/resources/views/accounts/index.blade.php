@@ -33,7 +33,7 @@
     </header>
 </div>
 
-<h1>■{{$title}}</h1>
+<h1>■アカウント一覧</h1>
 
 <form method="post" action="/accounts/index">
     <input type="text" name="name_index" placeholder="名前を入力">
