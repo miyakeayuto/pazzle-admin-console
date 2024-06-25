@@ -170,4 +170,26 @@ class AccountController extends Controller
     {
         return view('accounts/complete');
     }
+
+    //アカウント削除画面
+    public function delete(Request $request)
+    {
+        return view('accounts.delete', ['id' => $request['id']]);
+    }
+
+    //アカウント削除処理
+    public function doDelete(Request $request)
+    {
+        //idで検索後にレコードを削除
+        $account = Account::findOrFail($request['id']);
+        $account->delete();
+
+        return redirect()->route('accounts.completeDel');
+    }
+
+    //アカウント削除完了画面
+    public function completeDel(Request $request)
+    {
+        return view('accounts.completeDel');
+    }
 }

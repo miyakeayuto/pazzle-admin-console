@@ -43,16 +43,22 @@
 
 <table class="table">
     <tr>
+        <th>ID</th>
         <th>名前</th>
         <th>パス</th>
         <th>操作</th>
     </tr>
     @foreach($accounts as $account)
         <tr>
+            <td>{{$account['id']}}</td>
             <td>{{$account['name']}}</td>
             <td>{{$account['password']}}</td>
             <td>
-                <button type='submit'>削除</button>
+                <form method="post" action="{{route('accounts.delete')}}">
+                    @csrf
+                    <button type='submit'>削除</button>
+                    <input type="hidden" name="id" value="{{$account['id']}}">
+                </form>
             </td>
         </tr>
     @endforeach
