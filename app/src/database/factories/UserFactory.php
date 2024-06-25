@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use function Symfony\Component\Translation\t;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -12,33 +12,23 @@ use Illuminate\Support\Str;
 class UserFactory extends Factory
 {
     /**
-     * The current password being used by the factory.
-     */
-    protected static ?string $password;
-
-    /**
      * Define the model's default state.
      *
      * @return array<string, mixed>
      */
+    protected $model = User::class;
+
     public function definition(): array
     {
+        //日付ランダム生成
+        $scheduled_date = $this->faker->dateTimeBetween('+1day', '+1year');
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
+            'name' => $this->faker->unique()->name,
+            'level' => $this->faker->numberBetween(1, 99),//1～99のランダム
+            'experience_point' => $this->faker->randomNumber(2),//5桁のランダム
+            'life' => $this->faker->randomNumber(2),
+            'created_at' => $scheduled_date->format('Y-m-d H:i:s'),
+            'updated_at' => $scheduled_date->modify('+1hour')->format('Y-m-d H:i:s')
         ];
-    }
-
-    /**
-     * Indicate that the model's email address should be unverified.
-     */
-    public function unverified(): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
     }
 }

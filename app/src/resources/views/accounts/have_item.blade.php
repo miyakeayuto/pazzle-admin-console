@@ -20,10 +20,10 @@
         </div>
 
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="/accounts/index/{account_id?}" class="nav-link px-2">ユーザー一覧</a></li>
-            <li><a href="/accounts/player" class="nav-link px-2">プレイヤー一覧</a></li>
-            <li><a href="/accounts/item" class="nav-link px-2">アイテム一覧</a></li>
-            <li><a href="/accounts/have_item" class="nav-link px-2 link-secondary">所持アイテム一覧</a></li>
+            <li><a href="{{route('accounts.index')}}" class="nav-link px-2">アカウント一覧</a></li>
+            <li><a href="{{route('accounts.user-list')}}" class="nav-link px-2">ユーザー一覧</a></li>
+            <li><a href="{{route('accounts.item')}}" class="nav-link px-2">アイテム一覧</a></li>
+            <li><a href="{{route('accounts.have-item')}}" class="nav-link px-2 link-secondary">所持アイテム一覧</a></li>
         </ul>
 
         <div class="col-md-3 text-end">
@@ -48,7 +48,7 @@
     @foreach ($have_items as $have)
         <tr>
             <td>{{$have['id']}}</td>
-            <td>{{$have['player_name']}}</td>
+            <td>{{$have['user_name']}}</td>
             <td>{{$have['item_name']}}</td>
             <td>{{$have['possession']}}</td>
         </tr>

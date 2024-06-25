@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Account;
 use App\Models\HaveItem;
 use App\Models\Item;
-use App\Models\Player;
+use App\Models\User;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -80,7 +80,7 @@ class AccountController extends Controller
             //成功した時
             //セッションに指定のキーで値を保存
             $request->session()->put('login', true);
-            return redirect('accounts/index');
+            return redirect()->route('accounts.index');
         } else {
             //失敗した時
             return redirect()->route('login', ['error' => 'invalid']);
@@ -92,17 +92,17 @@ class AccountController extends Controller
         //指定したデータをセッションから削除
         $request->session()->forget('login');
 
-        return redirect('/');
+        return redirect()->route('login');
     }
 
     //プレイヤーリスト
-    public function playerList(Request $request)
+    public function userList(Request $request)
     {
-        $players = Player::All();
+        $users = User::All();
 
         //セッションに指定したキーが存在するか
         if ($request->session()->exists('login')) {
-            return view('accounts/player', ['players' => $players]);             //ビューに変数を渡す
+            return view('accounts/user', ['users' => $users]);             //ビューに変数を渡す
         } else {
             return view('accounts/login');
         }
@@ -124,7 +124,15 @@ class AccountController extends Controller
     //プレイヤーリスト
     public function have_ItemList(Request $request)
     {
-        $have_items = HaveItem::All();
+        $have_items = HaveItem::select([
+            'have_items.id as id',
+            'users.name as user_name',
+            'items.name as item_name',
+            'possession'
+        ])
+            ->join('users', 'users.id', '=', 'have_items.user_id')
+            ->join('items', 'items.id', '=', 'have_items.item_id')
+            ->get();
 
         //セッションに指定したキーが存在するか
         if ($request->session()->exists('login')) {
@@ -132,5 +140,34 @@ class AccountController extends Controller
         } else {
             return view('accounts/login');
         }
+    }
+
+    //アカウント追加画面
+    public function addAccount(Request $request)
+    {
+        return view('accounts/add');
+    }
+
+    //アカウント追加処理
+    public function doAdd(Request $request)
+    {
+        //バリデーション
+        $validated = $request->validate([
+            'name' => ['required', 'unique:accounts,name', 'min:4', 'max:20'],
+            'pass' => ['required', 'unique:accounts,password']
+        ]);
+
+        $pass = Hash::make($request['pass']);
+
+        //レコードを追加
+        Account::create(['name' => $request['name'], 'password' => $pass]);
+
+        return redirect()->route('accounts.complete');
+    }
+
+    //アカウント追加完了画面
+    public function addComplete(Request $request)
+    {
+        return view('accounts/complete');
     }
 }

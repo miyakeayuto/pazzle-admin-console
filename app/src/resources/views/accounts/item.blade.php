@@ -20,14 +20,14 @@
         </div>
 
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="/accounts/index/{account_id?}" class="nav-link px-2">ユーザー一覧</a></li>
-            <li><a href="/accounts/player" class="nav-link px-2">プレイヤー一覧</a></li>
-            <li><a href="/accounts/item" class="nav-link px-2 link-secondary">アイテム一覧</a></li>
-            <li><a href="/accounts/have_item" class="nav-link px-2">所持アイテム一覧</a></li>
+            <li><a href="{{route('accounts.index')}}" class="nav-link px-2">アカウント一覧</a></li>
+            <li><a href="{{route('accounts.user-list')}}" class="nav-link px-2">ユーザー一覧</a></li>
+            <li><a href="{{route('accounts.item')}}" class="nav-link px-2 link-secondary">アイテム一覧</a></li>
+            <li><a href="{{route('accounts.have-item')}}" class="nav-link px-2">所持アイテム一覧</a></li>
         </ul>
 
         <div class="col-md-3 text-end">
-            <form method="post" action="{{url('accounts/doLogout')}}">
+            <form method="post" action="{{route('doLogout')}}">
                 @csrf
                 <button type="submit" class="btn btn-outline-primary me-2">ログアウト</button>
                 <input type="hidden" name="action" value="doLogout">

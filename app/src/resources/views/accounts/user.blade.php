@@ -19,14 +19,14 @@
         </div>
 
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="/accounts/index/{account_id?}" class="nav-link px-2">ユーザー一覧</a></li>
-            <li><a href="/accounts/player" class="nav-link px-2 link-secondary">プレイヤー一覧</a></li>
-            <li><a href="/accounts/item" class="nav-link px-2">アイテム一覧</a></li>
-            <li><a href="/accounts/have_item" class="nav-link px-2">所持アイテム一覧</a></li>
+            <li><a href="{{route('accounts.index')}}" class="nav-link px-2">アカウント一覧</a></li>
+            <li><a href="{{route('accounts.user-list')}}" class="nav-link px-2 link-secondary">ユーザー一覧</a></li>
+            <li><a href="{{route('accounts.item')}}" class="nav-link px-2">アイテム一覧</a></li>
+            <li><a href="{{route('accounts.have-item')}}" class="nav-link px-2">所持アイテム一覧</a></li>
         </ul>
 
         <div class="col-md-3 text-end">
-            <form method="post" action="{{url('accounts/doLogout')}}">
+            <form method="post" action="{{route('doLogout')}}">
                 @csrf
                 <button type="submit" class="btn btn-outline-primary me-2">ログアウト</button>
                 <input type="hidden" name="action" value="doLogout">
@@ -35,7 +35,7 @@
     </header>
 </div>
 <!--プレイヤー一覧表示-->
-<h1>■プレイヤー一覧■</h1>
+<h1>■ユーザー一覧■</h1>
 <table class="table">
     <tr>
         <th>ID</th>
@@ -44,13 +44,13 @@
         <th>経験値</th>
         <th>ライフ</th>
     </tr>
-    @foreach ($players as $player)
+    @foreach ($users as $user)
         <tr>
-            <td>{{$player['id']}}</td>
-            <td>{{$player['name']}}</td>
-            <td>{{$player['level']}}</td>
-            <td>{{$player['experience_point']}}</td>
-            <td>{{$player['life']}}</td>
+            <td>{{$user['id']}}</td>
+            <td>{{$user['name']}}</td>
+            <td>{{$user['level']}}</td>
+            <td>{{$user['experience_point']}}</td>
+            <td>{{$user['life']}}</td>
         </tr>
     @endforeach
 </table>

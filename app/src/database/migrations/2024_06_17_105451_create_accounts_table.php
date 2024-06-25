@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->string('name', 20);          //nameカラム（20文字）
             $table->string('password');                 //パスワード
             $table->timestamps();                              //created_atとupdated_at
-            
+
             //$table->index('name');                     //nameにインデックス設定
             $table->unique('name');                    //nameにユニーク制約設定
         });

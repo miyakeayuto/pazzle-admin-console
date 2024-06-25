@@ -14,26 +14,26 @@ class Have_ItemsTableSeeder extends Seeder
     public function run(): void
     {
         HaveItem::create([
-            'player_name' => 'soruteiiiiiiiiii',
-            'item_name' => '回復薬グレート',
+            'user_id' => 1,
+            'item_id' => 1,
             'possession' => 10,
         ]);
 
         HaveItem::create([
-            'player_name' => 'miyake',
-            'item_name' => '秘薬',
+            'user_id' => 2,
+            'item_id' => 2,
             'possession' => 2,
         ]);
 
         HaveItem::create([
-            'player_name' => '汐',
-            'item_name' => 'エンプレスグリーヴ',
+            'user_id' => 3,
+            'item_id' => 3,
             'possession' => 1,
         ]);
 
         HaveItem::create([
-            'player_name' => '汐',
-            'item_name' => 'ドラゴンヘッド',
+            'user_id' => 3,
+            'item_id' => 4,
             'possession' => 1,
         ]);
     }
