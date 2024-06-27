@@ -15,6 +15,9 @@ Route::prefix('accounts')->name('accounts.')->controller(AccountController::clas
         Route::post('delete', 'delete')->name('delete');                        //アカウント削除画面のルート
         Route::post('doDelete', 'doDelete')->name('doDelete');                  //アカウント削除処理のルート
         Route::get('completeDel', 'completeDel')->name('completeDel');         //アカウント削除完了のルート
+        Route::post('update', 'update')->name('update');                         //アカウントの更新画面のルート
+        Route::post('doUpdate', 'doUpdate')->name('doUpdate');                         //アカウントの更新画面のルート
+        Route::get('completeUpdate', 'completeUpdate')->name('completeUpdate');       //アカウントの更新完了のルート
     });
 
 Route::get('/', [AccountController::class, 'login'])->name('login');

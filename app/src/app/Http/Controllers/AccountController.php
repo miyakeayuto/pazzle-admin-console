@@ -10,6 +10,7 @@ use App\Models\User;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use function Laravel\Prompts\password;
 
 class AccountController extends Controller
 {
@@ -191,5 +192,33 @@ class AccountController extends Controller
     public function completeDel(Request $request)
     {
         return view('accounts.completeDel');
+    }
+
+    //アカウント更新画面
+    public function update(Request $request)
+    {
+        return view('accounts.update', ['id' => $request['id']]);
+    }
+
+    //アカウント更新処理
+    public function doUpdate(Request $request)
+    {
+        //idで検索後にレコードを更新
+        $account = Account::findOrFail($request['id']);
+
+        //取得してきたパスワードに入力したパスワード（ハッシュ化）を代入して更新する
+        $account->password = Hash::make($request['password']);
+
+        //保存
+        $account->save();
+
+        //完了画面にリダイレクト
+        return redirect()->route('accounts.completeUpdate');
+    }
+
+    //アカウント更新完了画面
+    public function completeUpdate(Request $request)
+    {
+        return view('accounts.completeUpdate');
     }
 }

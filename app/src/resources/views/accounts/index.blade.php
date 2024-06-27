@@ -59,6 +59,11 @@
                     <button type='submit'>削除</button>
                     <input type="hidden" name="id" value="{{$account['id']}}">
                 </form>
+                <form method="post" action="{{route('accounts.update')}}">
+                    @csrf
+                    <button type='submit'>更新</button>
+                    <input type="hidden" name="id" value="{{$account['id']}}">
+                </form>
             </td>
         </tr>
     @endforeach
