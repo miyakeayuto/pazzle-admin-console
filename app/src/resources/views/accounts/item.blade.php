@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','アカウント一覧')
+@section('title','アイテム一覧')
 @section('items','link-secondary')
 @section('body')
     <!--アイテム一覧表示-->

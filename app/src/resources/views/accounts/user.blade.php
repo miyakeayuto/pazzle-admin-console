@@ -1,10 +1,10 @@
 @extends('layouts.app')
-@section('title','アカウント一覧')
+@section('title','ユーザー一覧')
 @section('users','link-secondary')
 @section('body')
     <!--プレイヤー一覧表示-->
     <h1>■ユーザー一覧■</h1>
-    {{$users->links('vendor.pagination.bootstrap-5')}}
+    {{$users->onEachSide(1)->links('vendor.pagination.bootstrap-5')}}
     <table class="table">
         <tr>
             <th>ID</th>

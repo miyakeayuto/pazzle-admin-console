@@ -4,7 +4,7 @@
 <form method="post" action="{{route('doLogin')}}">
     @csrf
     <label>ユーザー名：<input type="text" name="name"></label><br>
-    <label>パスワード：<input type="text" name="pass"></label><br>
+    <label>パスワード：<input type="password" name="pass"></label><br>
     <label><input type="submit" value="ログイン" name="btn_submit"></label>
     <input type="hidden" name="action" value="doLogin">
     @if($errors->any())
