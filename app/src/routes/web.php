@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 //ルートのグループ化
 Route::prefix('accounts')->name('accounts.')->controller(AccountController::class)
     ->middleware(AuthMiddleware::class)
+    ->middleware(\App\Http\Middleware\NoCacheMiddleware::class)
     ->group(function () {
         Route::get('user', 'userList')->name('user-list');                      //userのルート
         Route::get('add', 'addAccount')->name('create');                        //アカウント登録のルーティング追加

@@ -100,6 +100,8 @@ class AccountController extends Controller
     public function userList(Request $request)
     {
         $users = User::All();
+        //ページャー
+        $users = User::paginate(10);
 
         //セッションに指定したキーが存在するか
         if ($request->session()->exists('login')) {
@@ -155,7 +157,7 @@ class AccountController extends Controller
         //バリデーション
         $validated = $request->validate([
             'name' => ['required', 'unique:accounts,name', 'min:4', 'max:20'],
-            'pass' => ['required', 'unique:accounts,password']
+            'pass' => ['required', 'confirmed', 'unique:accounts,password']
         ]);
 
         $pass = Hash::make($request['pass']);
