@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Account;
 use App\Models\HaveItem;
 use App\Models\Item;
+use App\Models\Mail;
 use App\Models\User;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Http\Request;
@@ -222,5 +223,20 @@ class AccountController extends Controller
     public function completeUpdate(Request $request)
     {
         return view('accounts.completeUpdate');
+    }
+
+    //メールマスタデータ表示
+    public function mailList(Request $request)
+    {
+        $mails = Mail::select([
+            'mails.id as id',
+            'mails.text as text',
+            'items.name as items_name',
+            'amount'
+        ])
+            ->join('items', 'items.id', '=', 'mails.item_id')
+            ->get();
+
+        return view('accounts.mail', ['mails' => $mails]);
     }
 }

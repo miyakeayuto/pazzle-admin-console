@@ -20,6 +20,8 @@
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
             <li><a href="{{route('accounts.index')}}" class="nav-link px-2 @yield('accounts')">アカウント一覧</a></li>
             <li><a href="{{route('accounts.create')}}" class="nav-link px-2">アカウント登録</a></li>
+            <li><a href="{{route('accounts.mailList')}}" class="nav-link px-2" @yield('mail')>メールマスタデータ</a>
+            </li>
             <li><a href="{{route('accounts.user-list')}}" class="nav-link px-2 @yield('users')">ユーザー一覧</a></li>
             <li><a href="{{route('accounts.item')}}" class="nav-link px-2 @yield('items')">アイテム一覧</a></li>
             <li><a href="{{route('accounts.have-item')}}" class="nav-link px-2 @yield('haveItems')">所持アイテム一覧</a>

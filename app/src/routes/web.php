@@ -19,6 +19,7 @@ Route::prefix('accounts')->name('accounts.')->controller(AccountController::clas
         Route::post('update', 'update')->name('update');                         //アカウントの更新画面のルート
         Route::post('doUpdate', 'doUpdate')->name('doUpdate');                         //アカウントの更新画面のルート
         Route::get('completeUpdate', 'completeUpdate')->name('completeUpdate');       //アカウントの更新完了のルート
+        Route::get('mail', 'mailList')->name('mailList');                            //メールのマスタデータのルート
     });
 
 Route::get('/', [AccountController::class, 'login'])->name('login');
