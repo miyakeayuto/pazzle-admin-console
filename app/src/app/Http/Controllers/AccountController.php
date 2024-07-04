@@ -76,18 +76,28 @@ class AccountController extends Controller
             'name' => ['required', 'min:4', 'max:20']
         ]);
 
-        //条件を指定して取得
-        $account = Account::where('name', '=', $request['name'])->get();
+        $accounts = Account::all();
+        foreach ($accounts as $account) {
+            //配列分回す
+            if ($request['name'] == $account['name'] && $request['pass'] == $account['password']) {
+                //持ってきたnameとDBのデータのnameが一致するか確かめる
 
-        if (Hash::check($request['pass'], $account[0]->password)) {
-            //成功した時
-            //セッションに指定のキーで値を保存
-            $request->session()->put('login', true);
-            return redirect()->route('accounts.index');
-        } else {
-            //失敗した時
-            return redirect()->route('login', ['error' => 'invalid']);
+                //条件を指定して取得
+                $account = Account::where('name', '=', $request['name'])->get();
+
+                if (Hash::check($request['pass'], $account[0]->password)) {
+                    //成功した時
+                    //セッションに指定のキーで値を保存
+                    $request->session()->put('login', true);
+                    return redirect()->route('accounts.index');
+                } else {
+                    //失敗した時
+                    return redirect()->route('login', ['error' => 'invalid']);
+                }
+            }
         }
+        //一致しなかったら
+        return redirect()->route('login', ['error' => 'invalid']);
     }
 
     public function doLogout(Request $request)
