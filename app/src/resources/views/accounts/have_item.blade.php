@@ -4,9 +4,13 @@
 @section('body')
     <!--所持アイテム一覧表示-->
     <h1>■所持アイテム一覧■</h1>
+    <form method="post" action={{ route('accounts.have-item') }}>
+        <input type="text" name="id_find" placeholder="ユーザーIDを入力">
+        <button type="submit">検索</button>
+        @csrf
+    </form>
     <table class="table">
         <tr>
-            <th>ID</th>
             <th>プレイヤー名</th>
             <th>アイテム名</th>
             <th>所持個数</th>
@@ -20,7 +24,4 @@
             </tr>
         @endforeach
     </table>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-            crossorigin="anonymous"></script>
 @endsection

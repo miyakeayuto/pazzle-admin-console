@@ -7,6 +7,7 @@ use App\Models\HaveItem;
 use App\Models\User;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User_Mail;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,5 +22,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ItemsTableSeeder::class);
         $this->call(Have_ItemsTableSeeder::class);
         $this->call(MailsTableSeeder::class);
+        $this->call(User_MailsTableSeeder::class);
     }
 }

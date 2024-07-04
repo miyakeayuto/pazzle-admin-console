@@ -12,4 +12,12 @@ class User extends Model
     protected $guarded = [
         'id',
     ];
+
+    //リレーショナル（多対多）
+    public function items()
+    {
+        return $this->belongsToMany(
+            Item::class, 'have_items', 'user_id', 'item_id')
+            ->withPivot('possession');
+    }
 }

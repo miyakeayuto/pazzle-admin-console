@@ -8,6 +8,7 @@ use App\Models\HaveItem;
 use App\Models\Item;
 use App\Models\Mail;
 use App\Models\User;
+use App\Models\UserMail;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -238,5 +239,21 @@ class AccountController extends Controller
             ->get();
 
         return view('accounts.mail', ['mails' => $mails]);
+    }
+
+    //ユーザー受信メール一覧
+    public function userMail(Request $request)
+    {
+        $user_mails = UserMail::select([
+            'user_mails.id as id',
+            'users.name as user_name',
+            'mails.text as mail_name',
+            'user_mails.open_flag as open_flag'
+        ])
+            ->join('users', 'users.id', '=', 'user_mails.user_id')
+            ->join('mails', 'mails.id', '=', 'user_mails.mail_id')
+            ->get();
+
+        return view('accounts.user_mail', ['user_mails' => $user_mails]);
     }
 }
