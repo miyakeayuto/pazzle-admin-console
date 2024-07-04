@@ -231,6 +231,7 @@ class AccountController extends Controller
     {
         $mails = Mail::select([
             'mails.id as id',
+            'mails.title as title',
             'mails.text as text',
             'items.name as items_name',
             'amount'
@@ -255,5 +256,43 @@ class AccountController extends Controller
             ->get();
 
         return view('accounts.user_mail', ['user_mails' => $user_mails]);
+    }
+
+    //メール送信画面
+    public function sendMail(Request $request)
+    {
+        $mails = Mail::all();
+
+        return view('accounts.send_mail', ['mails' => $mails]);
+    }
+
+    //メール送信処理
+    public function doSend(Request $request)
+    {
+        //バリデーションチェック
+        //user_idが存在するか
+        $users = User::all();
+        foreach ($users as $user) {
+            //配列分回す
+            if ($request['user_id'] == $user['id']) {
+                //持ってきたidとDBのデータのidが一致するか確かめる
+                //レコードを追加
+                UserMail::create([
+                    'user_id' => $request['user_id'],
+                    'mail_id' => $request['mail_id'],
+                    'open_flag' => false
+                ]);
+                //完了画面にリダイレクト
+            }
+        }
+        //一致しなかったら
+        //入力画面にリダイレクト
+        return redirect()->route('accounts.sendmail');
+    }
+
+    //送信完了画面
+    public function completeSend(Request $request)
+    {
+        return view();
     }
 }

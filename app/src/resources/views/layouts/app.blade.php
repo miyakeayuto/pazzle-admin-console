@@ -25,6 +25,9 @@
             <li><a href="{{route('accounts.user_mail')}}"
                    class="nav-link px-2" @yield('user_mail')>ユーザー受信メール一覧</a>
             </li>
+            <li><a href="{{route('accounts.sendmail')}}"
+                   class="nav-link px-2" @yield('send_mail')>メール送信</a>
+            </li>
             <li><a href="{{route('accounts.user-list')}}" class="nav-link px-2 @yield('users')">ユーザー一覧</a></li>
             <li><a href="{{route('accounts.item')}}" class="nav-link px-2 @yield('items')">アイテム一覧</a></li>
             <li><a href="{{route('accounts.have-item')}}" class="nav-link px-2 @yield('haveItems')">所持アイテム一覧</a>

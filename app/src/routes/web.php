@@ -21,6 +21,9 @@ Route::prefix('accounts')->name('accounts.')->controller(AccountController::clas
         Route::get('completeUpdate', 'completeUpdate')->name('completeUpdate');       //アカウントの更新完了のルート
         Route::get('mail', 'mailList')->name('mailList');                            //メールのマスタデータのルート
         Route::get('user_mail', 'usermail')->name('user_mail');                    //ユーザー受信メール一覧のルート
+        Route::get('send_mail', 'sendmail')->name('sendmail');                       //メール送信画面表示のルート
+        Route::post('doSend', 'doSend')->name('doSend');                             //メール送信処理
+        Route::get('completeSend', 'completeSend')->name('completeSend');             //メール送信完了画面のルート
     });
 
 Route::get('/', [AccountController::class, 'login'])->name('login');

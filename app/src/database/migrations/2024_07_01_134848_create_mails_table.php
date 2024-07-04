@@ -12,6 +12,7 @@ return new class extends Migration {
     {
         Schema::create('mails', function (Blueprint $table) {
             $table->id();
+            $table->string('title');                //タイトル
             $table->string('text');                 //メールテキスト
             $table->integer('item_id');             //配布アイテム
             $table->integer('amount');              //アイテム数
