@@ -1,0 +1,15 @@
+###　ユーザー情報取得
+GET http://localhost:8000/api/users/1
+Accept: application/json
+
+### ユーザー一覧を取得(Level)
+GET http://localhost:8000/api/users?min_level=3&max_level=9
+Accept: application/json
+
+### アイテムリスト
+GET http://localhost:8000/api/items
+Accept: application/json
+
+### メールリスト
+GET http://localhost:8000/api/mails
+Accept: application/json
