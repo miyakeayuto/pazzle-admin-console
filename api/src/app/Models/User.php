@@ -20,4 +20,11 @@ class User extends Model
             Item::class, 'have_items', 'user_id', 'item_id')
             ->withPivot('possession');
     }
+
+    public function mails()
+    {
+        return $this->belongsToMany(
+            Mail::class, 'user_mails', 'user_id', 'mail_id')
+            ->withPivot('open_flag');
+    }
 }

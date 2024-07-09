@@ -76,28 +76,18 @@ class AccountController extends Controller
             'name' => ['required', 'min:4', 'max:20']
         ]);
 
-        $accounts = Account::all();
-        foreach ($accounts as $account) {
-            //配列分回す
-            if ($request['name'] == $account['name'] && $request['pass'] == $account['password']) {
-                //持ってきたnameとDBのデータのnameが一致するか確かめる
+        //条件を指定して取得
+        $account = Account::where('name', '=', $request['name'])->get();
 
-                //条件を指定して取得
-                $account = Account::where('name', '=', $request['name'])->get();
-
-                if (Hash::check($request['pass'], $account[0]->password)) {
-                    //成功した時
-                    //セッションに指定のキーで値を保存
-                    $request->session()->put('login', true);
-                    return redirect()->route('accounts.index');
-                } else {
-                    //失敗した時
-                    return redirect()->route('login', ['error' => 'invalid']);
-                }
-            }
+        if (Hash::check($request['pass'], $account[0]->password)) {
+            //成功した時
+            //セッションに指定のキーで値を保存
+            $request->session()->put('login', true);
+            return redirect()->route('accounts.index');
+        } else {
+            //失敗した時
+            return redirect()->route('login', ['error' => 'invalid']);
         }
-        //一致しなかったら
-        return redirect()->route('login', ['error' => 'invalid']);
     }
 
     public function doLogout(Request $request)
@@ -123,7 +113,7 @@ class AccountController extends Controller
         }
     }
 
-    //プレイヤーリスト
+    //アイテムリスト
     public function itemList(Request $request)
     {
         $items = Item::All();
@@ -136,25 +126,12 @@ class AccountController extends Controller
         }
     }
 
-    //プレイヤーリスト
+    //プレイヤー所持アイテムリスト
     public function have_ItemList(Request $request)
     {
-        $have_items = HaveItem::select([
-            'have_items.id as id',
-            'users.name as user_name',
-            'items.name as item_name',
-            'possession'
-        ])
-            ->join('users', 'users.id', '=', 'have_items.user_id')
-            ->join('items', 'items.id', '=', 'have_items.item_id')
-            ->get();
-
-        //セッションに指定したキーが存在するか
-        if ($request->session()->exists('login')) {
-            return view('accounts/have_item', ['have_items' => $have_items]);             //ビューに変数を渡す
-        } else {
-            return view('accounts/login');
-        }
+        $user = User::find($request['id_find']);
+        //関連モデルからデータ取得
+        return view('accounts.have_item', ['user' => $user ?? null]);
     }
 
     //アカウント追加画面

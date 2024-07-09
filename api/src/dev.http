@@ -10,6 +10,32 @@ Accept: application/json
 GET http://localhost:8000/api/items
 Accept: application/json
 
+### ユーザー所持アイテムリスト
+GET http://localhost:8000/api/usersItem/2
+Accept: application/json
+
 ### メールリスト
 GET http://localhost:8000/api/mails
 Accept: application/json
+
+### ユーザー受信メールリスト
+GET http://localhost:8000/api/mails/1
+Accept: application/json
+
+### ユーザー登録
+POST http://localhost:8000/api/users/store
+Content-Type: application/json
+Accept: application/json
+
+{
+    "name": "jobi"
+}
+
+### ユーザー更新
+POST http://localhost:8000/api/users/update
+Content-Type: application/json
+Accept: application/json
+
+{
+    "user_id":
+}
