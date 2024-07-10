@@ -37,5 +37,6 @@ Content-Type: application/json
 Accept: application/json
 
 {
-    "user_id":
+    "user_id": 101,
+    "level": 2
 }

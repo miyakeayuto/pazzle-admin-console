@@ -86,6 +86,9 @@ class UserController extends Controller
 
         $user = User::create([
             'name' => $request->name,
+            'level' => 1,
+            'experience_point' => 1,
+            'life' => 1
         ]);
 
         return response()->json(['user_id' => $user->id]);
@@ -97,9 +100,13 @@ class UserController extends Controller
         $user = User::findOrFail($request->user_id);
 
         //カラムの更新
-
+        if (isset($request->level)) {
+            $user->level = $request->level;
+        }
 
         //保存
         $user->save();
     }
+
+    
 }
