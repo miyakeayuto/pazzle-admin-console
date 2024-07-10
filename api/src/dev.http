@@ -40,3 +40,13 @@ Accept: application/json
     "user_id": 101,
     "level": 2
 }
+
+### メール受け取り
+POST http://localhost:8000/api/mails/open
+Content-Type: application/json
+Accept: application/json
+
+{
+    "user_id": 4,
+    "mail_id": 1
+}
