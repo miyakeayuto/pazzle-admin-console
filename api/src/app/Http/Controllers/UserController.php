@@ -9,6 +9,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use http\Env\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Mockery\Exception;
 
 class UserController extends Controller
 {
@@ -84,29 +86,46 @@ class UserController extends Controller
             return response()->json($validator->errors(), 400);
         }
 
-        $user = User::create([
-            'name' => $request->name,
-            'level' => 1,
-            'experience_point' => 1,
-            'life' => 1
-        ]);
+        try {
+            //トランザクション処理
+            $user = DB::transaction(function () use ($request) {
+                $user = User::create([
+                    'name' => $request->name,
+                    'level' => 1,
+                    'experience_point' => 1,
+                    'life' => 1
+                ]);
+                return $user;
+            });
+            return response()->json($user);
+        } catch (Exception $e) {
+            return response()->json($e, 500);
+        }
 
-        return response()->json(['user_id' => $user->id]);
+
     }
 
     //ユーザー更新
     public function update(Request $request)
     {
-        $user = User::findOrFail($request->user_id);
+        try {
+            //トライザクション処理
+            DB::transaction(function () use ($request) {
+                $user = User::findOrFail($request->user_id);
 
-        //カラムの更新
-        if (isset($request->level)) {
-            $user->level = $request->level;
+                //カラムの更新
+                if (isset($request->level)) {
+                    $user->level = $request->level;
+                }
+
+                //保存
+                $user->save();
+            });
+            return response()->json();
+        } catch (Exception $error) {
+            return response()->json($error, 500);
         }
-
-        //保存
-        $user->save();
     }
 
-    
+
 }
