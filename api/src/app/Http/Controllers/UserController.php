@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\UserItemResource;
 use App\Http\Resources\UserMailResource;
 use App\Http\Resources\UserResource;
+use App\Models\FollowLists;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use http\Env\Response;
@@ -127,5 +128,16 @@ class UserController extends Controller
         }
     }
 
+    //フォローリスト取得
+    public function userFollow(Request $request)
+    {
+        $user = FollowLists::findOrFail($request->user_id);
 
+        //ユーザーリストをリレーションで取得
+        $follows = $user->follow;
+
+        $response['follows'] = UserMailResource::collection($follows);
+
+        return response()->json($response);
+    }
 }

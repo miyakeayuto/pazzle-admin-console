@@ -24,6 +24,7 @@ Route::prefix('accounts')->name('accounts.')->controller(AccountController::clas
         Route::get('send_mail', 'sendmail')->name('sendmail');                       //メール送信画面表示のルート
         Route::post('doSend', 'doSend')->name('doSend');                             //メール送信処理
         Route::get('completeSend', 'completeSend')->name('completeSend');             //メール送信完了画面のルート
+        Route::get('follow', 'followList')->name('followList');
     });
 
 Route::get('/', [AccountController::class, 'login'])->name('login');

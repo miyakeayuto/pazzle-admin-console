@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 
+use App\Http\Resources\FollowResource;
 use App\Models\Account;
+use App\Models\FollowLists;
 use App\Models\HaveItem;
 use App\Models\Item;
 use App\Models\Mail;
@@ -281,5 +283,12 @@ class AccountController extends Controller
     public function completeSend(Request $request)
     {
         return view();
+    }
+
+    //フォローリスト
+    public function followList()
+    {
+        $follows = FollowLists::all();
+        return view('accounts.follow_list', ['follows' => $follows]);
     }
 }

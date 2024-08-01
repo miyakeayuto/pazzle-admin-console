@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Account;
+use App\Models\FollowLists;
 use App\Models\HaveItem;
 use App\Models\User;
 
@@ -23,5 +24,6 @@ class DatabaseSeeder extends Seeder
         $this->call(Have_ItemsTableSeeder::class);
         $this->call(MailsTableSeeder::class);
         $this->call(User_MailsTableSeeder::class);
+        $this->call(FollowListsTableSeeder::class);
     }
 }

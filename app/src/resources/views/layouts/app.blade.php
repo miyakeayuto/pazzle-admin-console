@@ -32,6 +32,10 @@
             <li><a href="{{route('accounts.item')}}" class="nav-link px-2 @yield('items')">アイテム一覧</a></li>
             <li><a href="{{route('accounts.have-item')}}" class="nav-link px-2 @yield('haveItems')">所持アイテム一覧</a>
             </li>
+            <li><a href="{{route('accounts.have-item')}}" class="nav-link px-2 @yield('itemLogs')">アイテムログ</a>
+            </li>
+            <li><a href="{{route('accounts.followList')}}" class="nav-link px-2 @yield('follow')">フォロー一覧</a>
+            </li>
         </ul>
 
         <div class="col-md-3 text-end">

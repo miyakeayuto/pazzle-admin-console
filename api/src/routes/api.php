@@ -27,6 +27,10 @@ Route::middleware(\App\Http\Middleware\NoCacheMiddleware::class)
 Route::middleware(\App\Http\Middleware\NoCacheMiddleware::class)
     ->get('mails/{user_id}', [\App\Http\Controllers\UserController::class, 'userMail'])
     ->name('mail.userMail');
+//フォローリスト取得
+Route::middleware(\App\Http\Middleware\NoCacheMiddleware::class)
+    ->get('follows{user_id}', [\App\Http\Controllers\UserController::class], 'userFollow')
+    ->name('users.userFollow');
 //ユーザー登録
 Route::post('users/store', [\App\Http\Controllers\UserController::class, 'store'])
     ->name('users.store');
