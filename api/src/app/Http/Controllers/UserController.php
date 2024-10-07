@@ -98,7 +98,9 @@ class UserController extends Controller
                 ]);
                 return $user;
             });
-            return response()->json($user);
+            //APIトークンを発行する
+            $token = $user->createToken($request->name)->plainTextToken;
+            return response()->json(['id' => $user->id, 'token' => $token]);
         } catch (Exception $e) {
             return response()->json($e, 500);
         }

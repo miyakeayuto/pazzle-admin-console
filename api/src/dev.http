@@ -41,7 +41,7 @@ Content-Type: application/json
 Accept: application/json
 
 {
-    "user_id": 101,
+    "user_id": 104,
     "level": 2
 }
 
@@ -49,8 +49,8 @@ Accept: application/json
 POST http://localhost:8000/api/mails/open
 Content-Type: application/json
 Accept: application/json
+Authorization: Bearer 3|0AnNakITu2ZH7fUHAcXNU7qrrY2jzo4irTpyeiyXa94aa3bb
 
 {
-    "user_id": 4,
     "mail_id": 1
 }

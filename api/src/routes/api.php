@@ -36,7 +36,7 @@ Route::post('users/store', [\App\Http\Controllers\UserController::class, 'store'
     ->name('users.store');
 //ユーザー更新
 Route::post('users/update', [\App\Http\Controllers\UserController::class, 'update'])
-    ->name('users.update');
+    ->middleware('auth:sanctum')->name('users.update');
 //メール受け取り
 Route::post('mails/open', [\App\Http\Controllers\MailController::class, 'openMail'])
-    ->name('mails.open');
+    ->middleware('auth:sanctum')->name('mails.open');
