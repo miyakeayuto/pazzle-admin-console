@@ -46,7 +46,7 @@ class UserController extends Controller
         );
     }
 
-    //ユーザー所持アイテムリスト
+    //ユーザー所持アイテムリスト　※ゲーム内未使用
     public function userItem(Request $request)
     {
         //指定ユーザーを取得
@@ -61,7 +61,7 @@ class UserController extends Controller
         return response()->json($response);
     }
 
-    //ユーザー受信メールリスト
+    //ユーザー受信メールリスト　※ゲーム内未使用
     public function userMail(Request $request)
     {
         //指定ユーザーを取得
@@ -130,7 +130,7 @@ class UserController extends Controller
         }
     }
 
-    //フォローリスト取得
+    //フォローリスト取得　※ゲーム内未使用
     public function userFollow(Request $request)
     {
         $user = FollowLists::findOrFail($request->user_id);

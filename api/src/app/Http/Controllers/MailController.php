@@ -30,7 +30,7 @@ class MailController extends Controller
         );
     }
 
-    //メール受け取り処理
+    //メール受け取り処理　※ゲーム内未使用
     public function openMail(Request $request)
     {
         try {
