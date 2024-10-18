@@ -11,12 +11,12 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('create_stage_positions', function (Blueprint $table) {
-            $table->id();
-            $table->integer('create_stage_id');
-            $table->integer('type');
-            $table->float('x');
-            $table->float('y');
-            $table->timestamps();
+            $table->id();                                   //ID
+            $table->integer('create_stage_id');      //クリエイトステージのID
+            $table->integer('type');                 //種別
+            $table->float('x');                      //X座標
+            $table->float('y');                     //Y座標
+            $table->timestamps();                           //登録日時
 
             //ユニーク制約設定
             $table->unique('create_stage_id');

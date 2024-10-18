@@ -11,9 +11,9 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('create_stages', function (Blueprint $table) {
-            $table->id();
-            $table->integer('stage_id');
-            $table->timestamps();
+            $table->id();                               //クリエイトステージID
+            $table->integer('stage_id');         //クリエイトしたステージのID
+            $table->timestamps();                       //登録日時
         });
     }
 
