@@ -14,7 +14,7 @@ class CreateStagesTableSeeder extends Seeder
     public function run(): void
     {
         CreateStage::create([
-            'stage_id' => 1
+            'stage_id' => 2
         ]);
     }
 }

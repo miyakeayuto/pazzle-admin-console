@@ -40,3 +40,10 @@ Route::post('users/update', [\App\Http\Controllers\UserController::class, 'updat
 //メール受け取り
 Route::post('mails/open', [\App\Http\Controllers\MailController::class, 'openMail'])
     ->middleware('auth:sanctum')->name('mails.open');
+//クリエイトステージ一覧取得
+Route::middleware(\App\Http\Middleware\NoCacheMiddleware::class)
+    ->get('creates/index', [\App\Http\Controllers\CreateStageController::class, 'index'])
+    ->name('creates.index');
+//ステージクリエイト情報登録
+Route::post('creates/store', [\App\Models\CreateStage::class, 'store'])
+    ->name('creates.store');

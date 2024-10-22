@@ -54,3 +54,19 @@ Authorization: Bearer 3|0AnNakITu2ZH7fUHAcXNU7qrrY2jzo4irTpyeiyXa94aa3bb
 {
     "mail_id": 1
 }
+
+### クリエイトステージ一覧取得
+GET http://localhost:8000/api/creates/index
+Accept: application/json
+
+### ステージクリエイト情報登録
+POST http://localhost:8000/api/creates/store
+Content-Type: application/json
+Accept: application/json
+
+{
+    "stage_id": 2,
+    "type": 1,
+    "x": 20,
+    "y": 40
+}
