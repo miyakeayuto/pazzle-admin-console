@@ -19,8 +19,7 @@ return new class extends Migration {
             $table->timestamps();                           //登録日時
 
             //ユニーク制約設定
-            $table->unique('create_stage_id');
-            $table->unique('type');
+            $table->unique(['create_stage_id', 'type']);
         });
     }
 

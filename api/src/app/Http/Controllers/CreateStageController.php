@@ -7,6 +7,8 @@ use App\Http\Resources\CrateStageResource;
 use App\Http\Resources\CrateStagePositionResource;
 use App\Models\CreateStagePosition;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Mockery\Exception;
 
 class CreateStageController extends Controller
 {
@@ -21,9 +23,14 @@ class CreateStageController extends Controller
     }
 
     //ステージクリエイト情報取得
-    public function show()
+    public function show(Request $request)
     {
+        $create_stage = CreateStage::findOrFail($request->create_stage_id);
+        $create_stage_position = CreateStagePosition::where("create_stage_id", "=", $request->create_stage_id)->get();
 
+        $create_stage["pos_list"] = $create_stage_position;
+
+        return response()->json($create_stage);
     }
 
     //ステージクリエイト情報登録
@@ -32,17 +39,20 @@ class CreateStageController extends Controller
         try {
             //トランザクション処理
             $create = DB::transaction(function () use ($request) {
-                $create = CreateStagePosition::create([
-                    'stage_id' => $request->stage_id,
-                    'type' => $request->type,
-                    'x' => $request->x,
-                    'y' => $request->y
+                $create_stage = CreateStage::create([
+                    "stage_id" => $request->stage_id
                 ]);
+                for ($i = 0; $i < count($request->pos_list); $i++) {
+                    $create = CreateStagePosition::create([
+                        'create_stage_id' => $create_stage->id,
+                        'type' => $request->pos_list[$i]["type"],
+                        'x' => $request->pos_list[$i]["x"],
+                        'y' => $request->pos_list[$i]["y"]
+                    ]);
+                }
                 return $create;
             });
-            //APIトークンを発行する
-            $token = $create->createToken($request->name)->plainTextToken;
-            return response()->json(['id' => $create->id, 'token' => $token]);
+            return response()->json();
         } catch (Exception $e) {
             return response()->json($e, 500);
         }

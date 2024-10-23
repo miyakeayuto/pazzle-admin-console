@@ -45,5 +45,9 @@ Route::middleware(\App\Http\Middleware\NoCacheMiddleware::class)
     ->get('creates/index', [\App\Http\Controllers\CreateStageController::class, 'index'])
     ->name('creates.index');
 //ステージクリエイト情報登録
-Route::post('creates/store', [\App\Models\CreateStage::class, 'store'])
+Route::post('creates/store', [\App\Http\Controllers\CreateStageController::class, 'store'])
     ->name('creates.store');
+//ステージクリエイト情報取得
+Route::middleware(\App\Http\Middleware\NoCacheMiddleware::class)
+    ->get('creates/show/{create_stage_id}', [\App\Http\Controllers\CreateStageController::class, 'show'])
+    ->name('creates.show');
